@@ -1,5 +1,7 @@
 package com.polina.memify.storage
 
+import com.polina.memify.env
+
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider
 import software.amazon.awssdk.regions.Region
@@ -14,9 +16,9 @@ const val PUBLIC_BUCKET_URL = "https://storage.yandexcloud.net/$BUCKET_NAME"
 // сервисного аккаунта, часть 2 гайда). "by lazy" — чтобы сервер не падал при старте,
 // если переменные ещё не заданы, а падал только при реальной попытке что-то загрузить.
 val s3Client: S3Client by lazy {
-    val accessKey = System.getenv("YC_ACCESS_KEY_ID")
+    val accessKey = env("YC_ACCESS_KEY_ID")
         ?: error("Не задана переменная окружения YC_ACCESS_KEY_ID")
-    val secretKey = System.getenv("YC_SECRET_KEY")
+    val secretKey = env("YC_SECRET_KEY")
         ?: error("Не задана переменная окружения YC_SECRET_KEY")
 
     S3Client.builder()

@@ -33,7 +33,7 @@ private const val JWT_ISSUER = "memify-backend"
 private const val JWT_AUDIENCE = "memify-app"
 
 private val jwtSecret: String =
-    System.getenv("JWT_SECRET") ?: run {
+    env("JWT_SECRET") ?: run {
         println(
             "ВНИМАНИЕ: переменная окружения JWT_SECRET не задана — используется небезопасный дефолт, " +
                 "годный только для локальной разработки. На реальном сервере обязательно задай свой " +
@@ -73,7 +73,7 @@ data class GoogleUserInfo(val sub: String, val email: String, val name: String?,
 // Web Client ID из Google Cloud Console — тот же самый, что передан в
 // GoogleSignInOptions.requestIdToken(...) на Android-клиенте. Без него нельзя
 // проверить подпись Google ID-токена.
-private val googleOAuthClientId: String? = System.getenv("GOOGLE_OAUTH_CLIENT_ID")
+private val googleOAuthClientId: String? = env("GOOGLE_OAUTH_CLIENT_ID")
 
 private val googleIdTokenVerifier: GoogleIdTokenVerifier? by lazy {
     val clientId = googleOAuthClientId ?: return@lazy null

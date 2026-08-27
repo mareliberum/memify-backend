@@ -1,5 +1,7 @@
 package com.polina.memify.db
 
+import com.polina.memify.env
+
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.Application
@@ -11,9 +13,9 @@ import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 // (Postgres.app, пользователь memify / memify_local_password, база memify).
 // На реальном сервере переопредели через переменные окружения DB_JDBC_URL / DB_USER / DB_PASSWORD.
 fun Application.configureDatabase() {
-    val jdbcUrlEnv = System.getenv("DB_JDBC_URL") ?: "jdbc:postgresql://localhost:5432/memify"
-    val dbUser = System.getenv("DB_USER") ?: "memify"
-    val dbPassword = System.getenv("DB_PASSWORD") ?: "memify_local_password"
+    val jdbcUrlEnv = env("DB_JDBC_URL") ?: "jdbc:postgresql://localhost:5432/memify"
+    val dbUser = env("DB_USER") ?: "memify"
+    val dbPassword = env("DB_PASSWORD") ?: "memify_local_password"
 
     val config = HikariConfig().apply {
         jdbcUrl = jdbcUrlEnv
