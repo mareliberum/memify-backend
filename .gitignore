@@ -1,0 +1,14 @@
+.gradle/
+build/
+.idea/
+.kotlin/
+*.iml
+out/
+
+# macOS / линуксовый мусор
+.DS_Store
+.fuse_hidden*
+
+# секретные файлы — никогда не коммить
+firebase-service-account.json
+.env

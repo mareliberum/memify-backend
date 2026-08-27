@@ -1,0 +1,11 @@
+ktor:
+  deployment:
+    port: 8080
+  application:
+    modules:
+      - com.polina.memify.db.DatabaseFactoryKt.configureDatabase
+      - com.polina.memify.TemplatesSyncKt.configureTemplatesSync
+      - com.polina.memify.HttpKt.configureHttp
+      - com.polina.memify.SerializationKt.configureSerialization
+      - com.polina.memify.SecurityKt.configureSecurity
+      - com.polina.memify.RoutingKt.configureRouting
