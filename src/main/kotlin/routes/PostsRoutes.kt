@@ -46,6 +46,12 @@ data class CreatePostRequest(
     val height: Int,
 )
 
+@Serializable
+data class ToggleLikeResponseDto(
+    val isLiked: Boolean,
+    val likesCount: Int,
+)
+
 private fun likesCountFor(postId: String): Int =
     transaction { PostLikes.selectAll().where { PostLikes.postId eq postId }.count() }.toInt()
 
@@ -155,7 +161,12 @@ fun Route.postsRoutes() {
                         }
                     }
 
-                call.respond(mapOf("isLiked" to nowLiked, "likesCount" to likesCountFor(postId)))
+                call.respond(
+                    ToggleLikeResponseDto(
+                        isLiked = nowLiked,
+                        likesCount = likesCountFor(postId),
+                    ),
+                )
             }
 
             get("/liked") {
